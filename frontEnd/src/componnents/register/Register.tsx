@@ -11,17 +11,17 @@ export default function Register() {
     const username = useRef<string>("")
     const email = useRef<string>("")
     const password = useRef<string>("")
-    const userObject = {
+    
+    async function  handelSubmission() {
+        const userObject = {
         username : username.current,
         email : email.current,
         password : password.current
     }
-    async function  handelSubmission() {
         const response : myResponse = await axios.post("http://localhost:3010/register" , userObject)
         if(!response.result) {setErrorMessage(response.message)}
-        if(response.result !== "user added successful") {
-            setErrorMessage(response.result),
-            <Navigate to="./profile" />
+        else {
+            <Navigate to="./login" />
         }
     }
   return (
