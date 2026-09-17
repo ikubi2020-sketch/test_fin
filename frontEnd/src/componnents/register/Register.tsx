@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useRef, useState } from "react"
 import { Navigate } from "react-router"
+import "./register.css"
 
 type myResponse = {
     result : string,
@@ -20,17 +21,16 @@ export default function Register() {
     }
         const response : myResponse = await axios.post("http://localhost:3010/register" , userObject)
         if(!response.result) {setErrorMessage(response.message)}
-        else {
-            <Navigate to="./login" />
-        }
+        <Navigate  to="/login"/>
     }
   return (
-    <div>
-        <div>
-            <input onChange={(e) => username.current = e.target.value} type="text" placeholder="enter username" required/>
-            <input onChange={(e) => email.current = e.target.value} type="email" placeholder="enter email" required/>
-            <input onChange={(e) => password.current = e.target.value} type="text" placeholder="enter password" required/>
-            <button onClick={handelSubmission}>send</button>
+    <div className="mainRegister">
+        <h1 className="headlineReg">welcome to Register page</h1>
+        <div className="userForm">
+            <input className="inputPlace" onChange={(e) => username.current = e.target.value} type="text" placeholder="enter username" required/>
+            <input className="inputPlace" onChange={(e) => email.current = e.target.value} type="email" placeholder="enter email" required/>
+            <input className="inputPlace" onChange={(e) => password.current = e.target.value} type="text" placeholder="enter password" required/>
+            <button className="buttonSend" onClick={handelSubmission}>send</button>
         </div>
         <div>{errorMessage?  errorMessage : null}</div>
     </div>

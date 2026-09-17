@@ -4,8 +4,10 @@ workdir backEnd
 
 copy . .
 
+run npm i
+
+copy . ./
+
 expose 3010
 
-copy . /.
-
-["npm"] ["start"]
+cmd ["npm"] ["start"]

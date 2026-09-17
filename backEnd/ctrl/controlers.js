@@ -1,7 +1,7 @@
 import {loginServ, profileServ, registerServ} from "../service/allService.js"
 
 export async function registerCtrl(req, res, next) {
-    const user = req.body
+    const user = req.params
     try {
         const resultRegister = await registerServ(user)
         res.status(201).json({result : `user added successful` }) 
@@ -24,7 +24,7 @@ export async function profileCtrl(req, res, next) {
     const user = req.body
     try {
         const resultProfile = await profileServ(user)
-        res.status(200).json({result : resultProfile }) 
+        res.status(200).json(resultProfile) 
     } catch (error) {
         next(error)
     }

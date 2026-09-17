@@ -1,0 +1,48 @@
+.mainLogin{
+    height: 100vh;
+    background-color: beige;
+    
+}
+.userFormLog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+.headlineLog{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.userFormLog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+.inputPlaceLog{
+    margin: 40px;
+    padding: 10px;
+    border-radius: 20px;
+}
+.buttonSendLog{
+    margin: 40px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: green;
+}
+.bottomMain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.linkToReg{
+    margin-left: 30px;
+    text-decoration: none;
+    font-size: 200%;
+}
+.pToReg{
+    font-size: 150%;
+}

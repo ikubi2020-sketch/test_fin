@@ -1,0 +1,26 @@
+.mainRegister{
+    height: 100vh;
+    background-color: beige;
+}
+.headlineReg{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.userForm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+.inputPlace{
+    margin: 40px;
+    padding: 10px;
+    border-radius: 20px;
+}
+.buttonSend{
+    margin: 40px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: green;
+}
