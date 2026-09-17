@@ -1,0 +1,52 @@
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+
+
+export function hashPassword(password) {
+    const hash = bcrypt.hashSync(password, 10)
+    return hash
+}
+
+export function comparePassword(password , hashPassword) {
+    const resultCompare = bcrypt.compareSync(password , hashPassword)
+    return resultCompare 
+}
+
+export function createToken(email) {
+    const token = jwt.sign(email, process.env.JWT_KEY, {expiresIn: process.env.JWT_EXPIRE_IN})
+    return token
+}
+
+export function checkToken(payLoad) {
+    const token = jwt.verify(payLoad, process.env.JWT_KEY)
+    return token
+}
+
+export async function validationRegister(req, res, next) {
+    const userDetails = req.body
+    const isExists = await findByEmail(userDetails.email)
+    if(isExists){return res.status(409).json({message :  "user already exists"})}
+    const hash = hashPassword(userDetails.password)
+    userDetails.userHash = hash
+    delete userDetails.password
+    next()
+}
+
+export async function validationLogin(req, res, next) {
+    const userDetails = req.body
+    const isExists = await findByEmail(userDetails.email)
+    if(!isExists){return res.status(400).json({message :  "user not found"})}
+    const isValidPassword = comparePassword(userDetails.password, hashPassword)
+    if(!isValidPassword){return  res.status(400).json({message :  "password is not correct"})}
+    next()
+}
+export async function validationLogin(req, res, next) {
+    const userDetails = req.body
+    const isExists = await findByEmail(userDetails.email)
+    if(!isExists){return res.status(400).json({message :  "user not found"})}
+    const token = req.headers.authorization.split("Bearer ")[1]
+    if(!token) {return  res.status(400).json({message :  "missing headers"})}
+    const validToken = checkToken(token)
+    if(!validToken){return  res.status(400).json({message :  "missing right headers"})}
+    next()
+}
