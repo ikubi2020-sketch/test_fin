@@ -10,6 +10,6 @@ type propsChildren = {
 
 export const ProtectedRote = ({children} : any) =>{
     const token = localStorage.getItem("token")
-    if(!token){<Navigate to="/login" />}
+    if(!token){return <Navigate to="/login" />}
     return children
 }

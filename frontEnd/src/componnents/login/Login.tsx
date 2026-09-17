@@ -2,6 +2,7 @@ import axios from "axios"
 import { useRef, useState } from "react"
 import { Navigate } from "react-router"
 import { Link } from "react-router"
+import { useNavigate } from "react-router"
 import "./login.css"
 
 type myResponse = {
@@ -11,6 +12,7 @@ type myResponse = {
 }
 
 export default function Login() {
+    const navigate = useNavigate()
     const [errorMessage , setErrorMessage] = useState<string | null>(null)
     const email = useRef<string>("")
     const password = useRef<string>("")
@@ -26,7 +28,7 @@ export default function Login() {
             localStorage.setItem("token", response.result),
             console.log(response.result),
             localStorage.setItem("userEmail", response.email),
-            <Navigate to="/profile"/>
+            navigate("/profile")
         }
     }
   return (
