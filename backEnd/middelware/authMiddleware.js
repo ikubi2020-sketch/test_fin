@@ -24,6 +24,7 @@ export function checkToken(payLoad) {
 
 export async function validationRegister(req, res, next) {
     const userDetails = req.body
+    console.log(userDetails)
     const isExists = await findByEmail(userDetails.email)
     if(isExists){return res.status(409).json({message :  "user already exists"})}
     const hash = hashPassword(userDetails.password)
@@ -50,7 +51,7 @@ export async function validationProfile(req, res, next) {
 
     const cleanPayload = checkToken(token)
     if(!cleanPayload){return  res.status(400).json({message :  "missing right headers"})}
-    console.log(cleanPayload)
+
     req.body = cleanPayload
     next()
 }
