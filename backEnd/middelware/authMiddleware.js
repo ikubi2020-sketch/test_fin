@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
-
+import {findByEmail} from "../dal/dbAction.js"
 
 export function hashPassword(password) {
     const hash = bcrypt.hashSync(password, 10)

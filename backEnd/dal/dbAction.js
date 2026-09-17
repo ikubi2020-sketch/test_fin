@@ -2,9 +2,14 @@ import {db} from "./dbconnection.js"
 
 const collection = db.collection("test_mid")
 
-async function(email) {
-    const user = await collection.findOne({email :  email})
+
+export async function addUser(user) {
+    const user = await collection.insertOne(user)
+    return user
 }
 
-
+export async function findByEmail(email) {
+    const user = await collection.findOne({email :  email})
+    return user
+}
 
