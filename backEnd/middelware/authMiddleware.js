@@ -12,14 +12,14 @@ export function comparePassword(password , hashPassword) {
     return resultCompare 
 }
 
-export function createToken(email) {
-    const token = jwt.sign(email, process.env.JWT_KEY, {expiresIn: process.env.JWT_EXPIRE_IN})
+export function createToken(payLoad) {
+    const token = jwt.sign({payLoad}, process.env.JWT_KEY, {expiresIn : process.env.JWT_EXPIRE_IN})
     return token
 }
 
 export function checkToken(payLoad) {
-    const token = jwt.verify(payLoad, process.env.JWT_KEY)
-    return token
+    const cleanPayload = jwt.verify(payLoad, process.env.JWT_KEY)
+    return cleanPayload
 }
 
 export async function validationRegister(req, res, next) {
@@ -36,7 +36,7 @@ export async function validationLogin(req, res, next) {
     const userDetails = req.body
     const isExists = await findByEmail(userDetails.email)
     if(!isExists){return res.status(400).json({message :  "user not found"})}
-    const isValidPassword = comparePassword(userDetails.password, hashPassword)
+    const isValidPassword = comparePassword(userDetails.password, isExists.userHash)
     if(!isValidPassword){return  res.status(400).json({message :  "password is not correct"})}
     next()
 }
@@ -44,10 +44,13 @@ export async function validationProfile(req, res, next) {
     const userDetails = req.body
     const isExists = await findByEmail(userDetails.email)
     if(!isExists){return res.status(400).json({message :  "user not found"})}
+
     const token = req.headers.authorization.split("Bearer ")[1]
-    console.log(token)
-    if(!token) {return  res.status(400).json({message :  "missing headers"})}
-    const validToken = checkToken(token)
-    if(!validToken){return  res.status(400).json({message :  "missing right headers"})}
+    if(!token) {return  res.status(400).json({message : "missing headers"})}
+
+    const cleanPayload = checkToken(token)
+    if(!cleanPayload){return  res.status(400).json({message :  "missing right headers"})}
+    console.log(cleanPayload)
+    req.body = cleanPayload
     next()
 }
