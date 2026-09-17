@@ -1,5 +1,6 @@
 import {addUser, findByEmail} from "../dal/dbAction.js"
 import {createToken} from "../middelware/authMiddleware.js"
+import {clearUser} from "../utils/utils.js"
 
 export async function registerServ(user) {
     try {
@@ -22,12 +23,10 @@ export async function loginServ(user) {
 
 export async function profileServ(user) {
     const userEmail = user.payLoad.email
-    console.log(userEmail)
     try {
         const userResult = await findByEmail(userEmail)
-        console.log(userResult)
-        
-        return userResult 
+        const cleanUser = clearUser(userResult)        
+        return cleanUser 
     } catch (error) {
         throw error
     }
