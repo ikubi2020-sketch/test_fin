@@ -8,9 +8,9 @@ type myResponse = {
 }
 export default function Register() {
     const [errorMessage , setErrorMessage] = useState<string | null>(null)
-    const username = useRef<string | null>(null)
-    const email = useRef<string | null>(null)
-    const password = useRef<string | null>(null)
+    const username = useRef<string>("")
+    const email = useRef<string>("")
+    const password = useRef<string>("")
     const userObject = {
         username : username.current,
         email : email.current,
