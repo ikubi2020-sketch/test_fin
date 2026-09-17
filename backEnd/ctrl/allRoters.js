@@ -1,12 +1,13 @@
 import express from "express"
-import {validationLogin,validationRegister} from "../middelware/authMiddleware.js"
+import {validationLogin,validationRegister, validationProfile} from "../middelware/authMiddleware.js"
+import {loginCtrl,profileCtrl ,registerCtrl} from "./controlers.js"
 
 const route = express.Router()
 
-route.use("/register",validationRegister, ()=>{})
+route.post("/register",validationRegister, registerCtrl)
 
-route.use("/login",validationLogin, ()=>{})
+route.post("/login",validationLogin, loginCtrl)
 
-route.use("/profile", ()=>{})
+route.get("/profile",validationProfile, profileCtrl)
 
 export { route}

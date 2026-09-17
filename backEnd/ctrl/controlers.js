@@ -1,15 +1,16 @@
 import {loginServ, profileServ, registerServ} from "../service/allService.js"
 
-export function registerCtrl() {
+export async function registerCtrl(req, res) {
+    const user = req.body
     try {
-        const resultRegister = registerServ()
-        return resultRegister
+        const resultRegister = await registerServ(user)
+        res.status(201).json({result : `user added successful` }) 
     } catch (error) {
         next(error)
     }
 }
 
-export function loginCtrl() {
+export function loginCtrl(req, res) {
     try {
         const resultLogin = loginServ()
         return resultLogin
@@ -18,7 +19,7 @@ export function loginCtrl() {
     }
 }
 
-export function profileCtrl() {
+export function profileCtrl(req, res) {
     try {
         const resultProfile = profileServ()
         return resultProfile

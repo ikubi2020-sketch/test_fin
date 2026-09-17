@@ -1,6 +1,15 @@
+import {addUser, findByEmail} from "../dal/dbAction.js"
 
+export async function registerServ(user) {
+    try {
+        const userResult = await  addUser(user)
+        return userResult 
+    } catch (error) {
+        throw error
+    }
+}
 
-export function registerServ(params) {
+export async function loginServ(params) {
     try {
         
     } catch (error) {
@@ -8,15 +17,7 @@ export function registerServ(params) {
     }
 }
 
-export function loginServ(params) {
-    try {
-        
-    } catch (error) {
-        throw error
-    }
-}
-
-export function profileServ(params) {
+export async function profileServ(params) {
     try {
         
     } catch (error) {
