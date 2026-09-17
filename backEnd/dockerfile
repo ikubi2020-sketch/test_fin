@@ -1,0 +1,11 @@
+from node:latest
+
+workdir backEnd
+
+copy . .
+
+expose 3010
+
+copy . /.
+
+["npm"] ["start"]
