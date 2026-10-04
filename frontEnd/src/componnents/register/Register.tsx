@@ -3,10 +3,10 @@ import { useRef, useState } from "react"
 import { useNavigate } from "react-router"
 import "./register.css"
 
-type myResponse = {
-    result : string,
-    message : string
-}
+// type myResponse = {
+//     result : string,
+//     message : string
+// }
 export default function Register() {
     const navigate = useNavigate()
     const [errorMessage , setErrorMessage] = useState<string | null>(null)
@@ -20,8 +20,8 @@ export default function Register() {
         email : email.current,
         password : password.current
     }
-        const response : myResponse = await axios.post("http://localhost:3010/register" , userObject)
-        if(!response.result) {setErrorMessage(response.message)}
+        const {data} = await axios.post("http://localhost:3010/register" , userObject)
+        if(!data.result) {setErrorMessage(data.message)}
         navigate("/login")
     }
   return (

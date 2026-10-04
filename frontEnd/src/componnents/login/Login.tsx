@@ -1,6 +1,5 @@
 import axios from "axios"
 import { useRef, useState } from "react"
-import { Navigate } from "react-router"
 import { Link } from "react-router"
 import { useNavigate } from "react-router"
 import "./login.css"
@@ -22,12 +21,10 @@ export default function Login() {
         email : email.current,
         password : password.current
     }
-        const response : myResponse = await axios.post("http://localhost:3010/login" , userObject)
-        if(!response.result) {setErrorMessage(response.message)}
+        const response : any = await axios.post("http://localhost:3010/login" , userObject)
+        if(!response.data.result) {setErrorMessage(response.message)}
         else {
-            localStorage.setItem("token", response.result),
-            console.log(response.result),
-            localStorage.setItem("userEmail", response.email),
+            localStorage.setItem("token", response.data.message),
             navigate("/profile")
         }
     }

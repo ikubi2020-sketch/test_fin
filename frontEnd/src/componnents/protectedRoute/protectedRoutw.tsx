@@ -3,7 +3,7 @@ import { Navigate } from "react-router";
 
 
 type propsChildren = {
-    children : ReactNode
+    children : React.ReactNode
 }
 
 
